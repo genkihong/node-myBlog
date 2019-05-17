@@ -1,0 +1,24 @@
+{
+  "name": "myexpressblog",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "dotenv": "^8.0.0",
+    "ejs": "~2.5.7",
+    "express": "~4.16.0",
+    "express-ejs-extend": "0.0.1",
+    "express-session": "^1.16.1",
+    "firebase": "^5.11.1",
+    "firebase-admin": "^7.3.0",
+    "http-errors": "~1.6.2",
+    "moment": "^2.24.0",
+    "morgan": "~1.9.0",
+    "striptags": "^3.1.1"
+  }
+}

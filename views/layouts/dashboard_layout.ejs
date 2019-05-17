@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>商務控制後台</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
+  <style>
+    html {
+      font-size: 16px;
+    }
+
+    .main {
+      min-height: calc(100vh - (49px + 49px + 42px + 18px))
+    }
+  </style>
+  <!-- JavaScript -->
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" href="/dashboard/">My Blog 控制台</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <% if (hasOwnProperty('currentPath')) { %>
+        <a class="nav-item nav-link <% if (currentPath.match('/archives/')) { %>active<% } %>"
+          href="/dashboard/archives">文章管理 </a>
+        <a class="nav-item nav-link <% if (currentPath.match('/categories/')) { %>active<% } %>"
+          href="/dashboard/categories">分類管理 </a>
+        <% } %>      
+      </div>
+    </div>    
+    <a class="nav-link" href="/auth/signout">登出</a>
+  </nav>
+  <div class="main container-fluid my-4">
+    <%- content %>
+  </div>
+  <footer class="mt-5 py-3 bg-light text-secondary text-center">
+    後台管理系統
+  </footer>
+</body>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+</html>

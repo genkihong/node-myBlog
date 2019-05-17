@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Charles Blog</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <!-- 圖片來源：http://www.gratisography.com/#objects -->
+    <style>
+      .breadcrumb {
+        background-color: transparent;
+      }
+      /* typography design */
+      .text-primary {
+        color: #00cc99 !important;
+      }
+      .post {
+        line-height: 1.8;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+      <a class="navbar-brand" href="/">
+        <i class="fa fa-diamond" aria-hidden="true"></i>
+        Charles Blog
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ml-auto">
+          <a class="nav-item nav-link" href="/auth/signin">登入</a>
+        <% var categories = categories || {} %>
+        <% for (var prop in categories) { %>
+          <% if (categories.hasOwnProperty(prop)) { %>
+          <a class="nav-item nav-link <% if (categories[prop].id === categoryId) { %>active<% } %>" href="/<%- categories[prop].path %>">
+            <%= categories[prop].name %>
+            <span class="sr-only">(current)</span>
+          </a>
+          <% } %>
+        <% } %>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <%- content %>
+    </div>
+    <footer class="bg-light text-muted py-5">
+      <div class="container">
+        <ul class="list-unstyled d-flex justify-content-between">
+          <li class="">© Copright 2019 My Blog</li>
+          <li class="ml-auto">
+            <a class="text-info mr-1" href="#">
+              <i class="fa fa-instagram" aria-hidden="true"></i>
+            </a>
+            <a class="text-info mr-1" href="#">
+              <i class="fa fa-facebook-square" aria-hidden="true"></i>
+            </a>
+            <a href="" class="text-info">
+              <i class="fa fa-twitter" aria-hidden="true"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+
+<nav class="my-5" aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item <% if (!page.hasPrepage) { %>disabled<% } %>">      
+      <a class="page-link" href="<%- page.route %>?page=<%- page.currentPage - 1 %>" tabindex="-1">
+        <span aria-hidden="true">&laquo;</span>
+      </a>      
+    </li>
+    <% for (var i = 1; i < page.totalPages + 1; i++) { %>    
+    <li class="page-item <% if (i === page.currentPage) { %>active<% } %>">      
+      <a class="page-link" href="<%- page.route %>?page=<%- i %>">     
+        <%= i %>
+      </a>
+    </li>
+    <% } %>  
+    <li class="page-item <% if (!page.hasNextpage) { %>disabled<% } %>">      
+      <a class="page-link" href="<%- page.route %>?page=<%- page.currentPage + 1 %>">
+        <span aria-hidden="true">&raquo;</span>
+      </a>      
+    </li>
+  </ul>
+</nav>

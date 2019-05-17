@@ -1,0 +1,16 @@
+<% extend('../layouts/dashboard_layout') %>
+
+<div class="row my-4 justify-content-center">
+  <div class="col-md-9">
+  <% if (hasInfo) { %>
+    <% for (var prop in messages) { %>
+      <div class="alert alert-warning">
+        <%- messages[prop] %>
+      </div>
+    <% } %>
+  <% } %>
+    <h1 class="text-center">
+      後台首頁
+    </h1>
+  </div>
+</div>

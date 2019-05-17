@@ -1,0 +1,59 @@
+<% extend('./layouts/layout') %>
+
+<div class="hex-blog">
+  <nav class="breadcrumb pl-0">
+    <a class="breadcrumb-item text-primary" href="/">Home</a>
+    <a class="breadcrumb-item text-primary" href="#">      
+      <% if (categories.hasOwnProperty(article.category)) { %>
+      <%= categories[article.category].name %>
+      <% } else { %>
+      沒有分類
+      <% } %>     
+    </a>
+    <span class="breadcrumb-item active"><%= article.title || '' %></span>
+  </nav>
+  <div class="row justify-content-center">
+    <div class="col-md-9">
+      <%# artical header %>
+      <h1 class="text-primary"><%= article.title %></h1>
+      <div class="d-flex flex-row text-secondary small">
+        <div class="p-2"><i class="fa fa-user-o" aria-hidden="true"></i> Charles</div>
+        <div class="p-2"><%= moment(article.update_time * 1000).format('L'); %></div>
+        <div class="p-2"><i class="fa fa-tag" aria-hidden="true"></i> 
+          <a href="" class="text-info">            
+            <% if (categories.hasOwnProperty(article.category)) { %>
+            <%= categories[article.category].name %>
+            <% } else { %>
+            沒有分類
+            <% } %>            
+          </a>
+        </div>
+      </div>
+      <article class="text-dark post mb-4">
+        <%- article.content || '' %>
+      </article>
+      <%# == 留言 == %>
+      <div class="card mb-3">
+        <div class="card-body">
+          <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+var disqus_shortname = 'ashare';
+(function() {
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+
+</script>

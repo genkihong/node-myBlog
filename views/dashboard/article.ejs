@@ -1,0 +1,66 @@
+<% extend('../layouts/dashboard_layout') %>
+<% 
+  console.log(article);
+  if (article === undefined) {
+    var article = {};
+  }
+%> 
+<%# == 判斷是否有 article.id == %>
+<form
+  <% if (article.id) { %>
+    action="/dashboard/article/update/<%= article.id %>" 
+  <% } else { %>
+    action="/dashboard/article/create"
+  <% } %>
+    method="POST" class="row justify-content-center">
+  <%# 新增文章 %>    
+  <div class="col-md-6">
+    <label for="title">請輸入標題</label>
+    <input type="text" id="title" class="form-control" name="title" placeholder="標題" value="<%= article.title || '' %>">
+    <hr>
+    <textarea name="content" id="editor" class="form-control">
+      <%- article.content || '' %>
+    </textarea>
+    <script>
+			CKEDITOR.replace( 'content' );
+		</script>
+  </div>
+  <div class="col-md-3">    
+    <div class="card mb-3">
+      <h6 class="card-header">分類</h6>
+      
+      <%# == 文章分類 == %>
+      <div class="card-body">
+        <% for (var prop in categories) { %>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="radio" name="category" value="<%= prop %>" 
+                <% if (prop === article.category) { %>checked<% } %> required>
+              <%= categories[prop].name %>
+            </label>
+          </div>
+        <% } %>        
+      </div>
+    </div>
+
+    <div class="card mb-3">
+      <h6 class="card-header">是否公開</h6>
+      <div class="card-body">
+        <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+          <label class="btn btn-outline-primary w-100 <% if (article.status === 'draft') { %>active<% } %>">
+            <input type="radio" name="status" autocomplete="off" value="draft" 
+            <% if (article.status === 'draft') { %>checked<% } %> > 草稿
+          </label>
+          <label class="btn btn-outline-primary w-100 <% if (article.status === 'public') { %>active<% } %>">
+            <input type="radio" name="status" autocomplete="off" value="public"
+            <% if (article.status === 'public') { %>checked<% } %> > 公開
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-group w-100">
+      <button type="submit" class="btn btn-outline-primary w-100">儲存</button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,105 @@
+<% extend('../layouts/dashboard_layout') %>
+
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <% if (hasInfo) { %>
+      <% for (var prop in messages) { %>
+        <div class="alert alert-warning">
+          <%- messages[prop] %>
+        </div>
+      <% } %>
+    <% } %>
+
+    <% if (articles === null) { %>
+      <div class="alert alert-warning">
+        目前沒有文章喔
+      </div>
+    <% } %>
+    
+    <div class="btn-group w-100">
+      <a href="/dashboard/archives?status=public" class="btn btn-outline-warning w-75 rounded-0
+        <% if (status ==='public') { %>active<% } %>">已發佈</a>
+      <a href="/dashboard/archives?status=draft" class="btn btn-outline-warning w-75 rounded-0
+        <% if (status ==='draft') { %>active<% } %>">草稿</a>
+      <a href="/dashboard/article/create" class="btn btn-info w-25">新增文章</a>
+    </div>
+
+    <%# 文章列表 %>
+    <% for (var prop in articles) { %>
+    <div class="card my-3">
+      <h4 class="card-header">
+        <%= articles[prop].title %>
+      </h4>
+      <div class="card-body">
+        <%- striptags(articles[prop].content).slice(0, 100) %>...
+        <div>
+          <span class="fa fa-clock-o"></span>
+          <%= moment(articles[prop].update_time * 1000).format('L'); %>
+          <span class="fa fa-folder-open-o"></span>
+          <span>
+            <% if (categories.hasOwnProperty(articles[prop].category)) { %>
+            <%= categories[articles[prop].category].name %>
+            <% } else { %>
+            沒有分類
+            <% } %>
+          </span>
+        </div>
+      </div>
+      <div class="card-footer p-0 btn-group">
+        <a href="#" class="btn btn-outline-danger rounded-0 deletePost w-25"
+          data-id="<%= articles[prop].id %>" data-title="<%= articles[prop].title %>">
+          刪除
+        </a>
+        <a href="/dashboard/article/<%= articles[prop].id %>" class="btn btn-outline-primary w-75 rounded-0">
+          編輯
+        </a>          
+        <a href="/post/<%= articles[prop].id %>" target="_blank" class="btn btn-outline-primary w-75 rounded-0">
+          預覽
+        </a>          
+      </div>
+    </div>
+    <% } %>  
+  </div>
+</div>
+<%# 分頁 %>
+<nav class="my-5" aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item <% if (!page.hasPrepage) { %>disabled<% } %>">      
+      <a class="page-link" href="<%- page.route %>&page=<%- page.currentPage - 1 %>" tabindex="-1">
+        <span aria-hidden="true">&laquo;</span>
+      </a>      
+    </li>
+    <% for (var i = 1; i < page.totalPages + 1; i++) { %>    
+    <li class="page-item <% if (i === page.currentPage) { %>active<% } %>">      
+      <a class="page-link" href="<%- page.route %>&page=<%- i %>">      
+        <%= i %>
+      </a>
+    </li>
+    <% } %>  
+    <li class="page-item <% if (!page.hasNextpage) { %>disabled<% } %>">     
+      <a class="page-link" href="<%- page.route %>&page=<%- page.currentPage + 1 %>">
+        <span aria-hidden="true">&raquo;</span>
+      </a>      
+    </li>
+  </ul>
+</nav>
+
+<script>
+  $(document).ready(function() {
+    $('.deletePost').on('click', function(e) {
+      e.preventDefault();
+      var id = $(this).data('id');
+      var title = $(this).data('title');
+      // console.log(id, title);
+      if (confirm(`確認是否要刪除 ${title}?`)) {
+        $.ajax({
+          url: `/dashboard/article/delete/${id}`,// 用 AJAX 串接刪除文章 API
+          method: 'POST'
+        }).done(function(response) {
+          console.log(response);
+          window.location = '/dashboard/archives';// 刪除文章後，回到所有文章列表
+        });
+      }
+    });
+  });
+</script>
