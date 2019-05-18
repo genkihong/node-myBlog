@@ -1,13 +1,6 @@
 const firebaseAdmin = require('firebase-admin');
 require('dotenv').config(); // 使用 env 環境變數設定 firebase Admin SDK
 
-
-const serviceAccount = require("./member-20190506-firebase-adminsdk-adyor-41dc72d754");
-
-// firebaseAdmin.initializeApp({
-//   credential: firebaseAdmin.credential.cert(serviceAccount),
-//   databaseURL: "https://member-20190506.firebaseio.com"
-// });
 firebaseAdmin.initializeApp({
   credential: firebaseAdmin.credential.cert({
     type: 'service_account',
